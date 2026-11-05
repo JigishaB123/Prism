@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ingestion
+  # Overridden in Docker by SPRING_DATASOURCE_URL / _USERNAME / _PASSWORD.
+  # The defaults let the app run directly on a laptop against a local Postgres.
+  datasource:
+    url: jdbc:postgresql://localhost:5432/prism
+    username: prism
+    password: prism
+  jpa:
+    # Flyway owns the schema; Hibernate only checks that entities match it.
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
